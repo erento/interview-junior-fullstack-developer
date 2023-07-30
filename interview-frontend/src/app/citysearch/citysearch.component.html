@@ -1,0 +1,33 @@
+
+<mat-card>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-12">
+                <h3>Search for a City:</h3>
+                <mat-form-field class="example-full-width d-block">
+                  <mat-label>City</mat-label>
+                  <input type="text"
+                         placeholder="Pick one"
+                         aria-label="City"
+                         matInput
+                         [formControl]="myControl"
+                         [matAutocomplete]="auto">
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options" [value]="option['cityName']">
+                        {{option["cityName"]}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <button mat-raised-button color="primary" type="button" class="d-block w-100" (click)="updateList()">Search</button>
+            </div>
+        </div>
+
+
+        <h3 class="mt-5" [hidden]="listItems.length == 0">Results:</h3>
+        <mat-list>
+            <mat-list-item *ngFor="let item of listItems">{{item["cityName"]}}</mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
