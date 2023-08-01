@@ -32,7 +32,6 @@ export class AppComponent {
 
   OnSearch(){
     this.cityService.findCities(this.text).subscribe((data) => {
-      console.log(this.cities)
       this.cities = data as City[];
     });
   }
