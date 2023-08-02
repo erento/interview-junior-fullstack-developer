@@ -1,7 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { CitiesService } from './cities.service';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { City } from './entities/city.entity';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PaginatedCities } from './paginationResponse';
 
 @ApiTags('cities')
 @Controller('cities')
@@ -9,22 +9,56 @@ export class CitiesController {
   constructor(private readonly citiesService: CitiesService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get a paginated list of all cities' })
+  @ApiQuery({
+    name: 'page',
+    type: Number,
+    required: false,
+    description: 'the required page',
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    type: Number,
+    required: false,
+    description: 'the amount of cities per page',
+    example: 5,
+  })
   @ApiResponse({
     status: 200,
-    description: 'All cities',
-    type: City,
+    description: 'A paginated list of all cities',
+    type: PaginatedCities,
   })
-  findAll() {
-    return this.citiesService.findAll();
+  findAll(@Query('page') page = 1, @Query('limit') limit = 5) {
+    return this.citiesService.findAll(+page, +limit);
   }
 
   @Get(':searchString')
+  @ApiOperation({ summary: 'Search for cities matching a name' })
+  @ApiQuery({
+    name: 'page',
+    type: Number,
+    required: false,
+    description: 'the required page',
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    type: Number,
+    required: false,
+    description: 'the amount of cities per page',
+    example: 5,
+  })
   @ApiResponse({
     status: 200,
-    description: 'The cities matching the search string, case insensitive',
-    type: City,
+    description: 'List of cities matching the search string, case insensitive',
+    type: PaginatedCities,
   })
-  findAllMatching(@Param('searchString') searchString: string) {
-    return this.citiesService.findAllMatching(searchString);
+  findAllMatching(
+    @Param('searchString') searchString: string,
+    @Query('page') page = 1,
+    @Query('limit') limit = 5,
+  ) {
+    return this.citiesService.findAllMatching(searchString, +page, +limit);
   }
 }
