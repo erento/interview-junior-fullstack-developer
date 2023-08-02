@@ -96,7 +96,6 @@ describe('AppController', () => {
       jest.spyOn(appController,"findCities").mockResolvedValue(mockCities as never);
 
       const result = await appController.findCities("e");
-      console.log(result)
       expect(result.toString).toBe(resultCities.toString);
     });
   });

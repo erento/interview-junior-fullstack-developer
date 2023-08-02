@@ -1,12 +1,10 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { CityService } from '../services/city.service';
 import City from '../../../../interview-backend/src/entities/City';
-import { throwError } from 'rxjs';
 
-describe('DataService', () => {
+describe('CityService', () => {
   let httpTestingController: HttpTestingController;
   let service: CityService;
 
@@ -53,6 +51,14 @@ describe('DataService', () => {
     expect(testRequest.request.method).toEqual('GET');
   });
 
+  it('#getCities should handle HTTP 404 error', () => {
+    const errorMessage = "Http failure response for http://localhost:3000: 404 Not Found";
+    service.getCities().subscribe();
+    httpTestingController.expectOne('http://localhost:3000').flush(null, { status: 404, statusText: 'Not Found' });
+    
+    expect(service.errorMessage).toBe(errorMessage);
+  });
+
 
   //findCities() method testing
 
@@ -79,6 +85,14 @@ describe('DataService', () => {
     const testRequest = httpTestingController.expectOne('http://localhost:3000/search/r');
 
     expect(testRequest.request.method).toEqual('GET');
+  });
+
+  it('#findCities should handle HTTP 404 error', () => {
+    const errorMessage = "Http failure response for http://localhost:3000/search/r: 404 Not Found";
+    service.findCities("r").subscribe();
+    httpTestingController.expectOne('http://localhost:3000/search/r').flush(null, { status: 404, statusText: 'Not Found' });
+    
+    expect(service.errorMessage).toBe(errorMessage);
   });
 
 });

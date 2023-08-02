@@ -88,7 +88,6 @@ describe('CityService', () => {
       jest.spyOn(cityService, 'filterCities').mockResolvedValue(mockCities as never);
 
       const result = await cityService.filterCities("e");
-      console.log(result)
       expect(result.toString).toBe(resultCities.toString);
     });
   });

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CityService } from '../services/city.service';
 import City from '../../../../interview-backend/src/entities/City'
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +36,6 @@ export class AppComponent {
         ' </div>',
         '</div>'
       ].join('');
-      console.log(this.alertPlaceholder.children[0])
      if(this.alertPlaceholder.children[0]==undefined) this.alertPlaceholder.append(this.wrapper);
     }
   }
@@ -42,7 +43,7 @@ export class AppComponent {
   getAllCities(){
     this.cityService.getCities().subscribe((data) => {
       this.cities = data as City[];
-    });
+    })
   }
 
   onSearch(){
