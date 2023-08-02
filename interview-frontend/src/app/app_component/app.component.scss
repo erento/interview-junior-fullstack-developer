@@ -1,0 +1,51 @@
+
+.table-responsive{
+    overflow: scroll;
+    max-height: 315px;
+    margin-top: 10px; 
+}
+
+.table-dark{
+    background-color:dimgray;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+.main {
+    width: 50%;
+    margin: 5% auto;
+}
+
+#no-city{
+    margin: 2%;
+}
+
+.display-1 {
+    margin-top: 1%;
+    text-align: center;
+    margin-bottom: 2%
+}
+
+.display-4 {
+    margin-bottom: 4%;
+    font-size: medium;
+    text-align: center;
+}
+
+.has-search .form-control {
+    padding-left: 1%;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 1%;
+    height: 1%;
+    line-height: 1%;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
