@@ -8,12 +8,9 @@ export class CitiesService {
   private readonly cities: City[] = [];
 
   async findAll(page: number, limit: number): Promise<PaginatedCities> {
-    const mockDatabaseData = await this.fetchFromMockDatabase();
-    const paginationInformation = this.generatePaginationInformation(
-      mockDatabaseData,
-      page,
-      limit,
-    );
+    const mockDatabaseData: City[] = await this.fetchFromMockDatabase();
+    const paginationInformation: PaginatedCities =
+      this.generatePaginationInformation(mockDatabaseData, page, limit);
 
     return paginationInformation;
   }
@@ -39,7 +36,7 @@ export class CitiesService {
     return paginationInformation;
   }
 
-  generatePaginationInformation(
+  private generatePaginationInformation(
     mockDatabaseData: City[],
     page: number,
     limit: number,
