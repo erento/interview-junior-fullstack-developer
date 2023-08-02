@@ -15,7 +15,10 @@ interface City {
 export class AppComponent {
   cities: City[];
   text:string;
-  
+  appendAlert:any;
+  alertPlaceholder:any;
+  wrapper:any;
+
   constructor(
     private cityService: CityService,
   ) {
@@ -26,6 +29,19 @@ export class AppComponent {
  
   ngOnInit() {
     this.GetAllCities();
+    this.alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+    this.appendAlert = (message:any) => {
+      this.wrapper = document.createElement('div')
+      this.wrapper.innerHTML = [
+        `<div class="alert alert-danger" role="alert">`,
+        ` <div class="alertt">`,
+        '   <i class="bi bi-x-octagon-fill"></i>',
+        `   <label">${message}</label>`,
+        ' </div>',
+        '</div>'
+      ].join('');
+     if(this.alertPlaceholder) this.alertPlaceholder.append(this.wrapper);
+    }
   }
 
   GetAllCities(){
@@ -35,9 +51,20 @@ export class AppComponent {
   }
 
   OnSearch(){
-    if(this.text=="") this.GetAllCities();
-    this.cityService.findCities(this.text).subscribe((data) => {
-      this.cities = data as City[];
-    });
+    if(!this.IsStringOnlyCharacters(this.text))
+      this.appendAlert("Please type letters only to the input field!");
+    else
+    {
+      if(this.text=="") this.GetAllCities();
+      else{
+        this.cityService.findCities(this.text).subscribe((data) => {
+        this.cities = data as City[];});
+      }
+      if(this.alertPlaceholder.children[0]!=undefined) this.alertPlaceholder.removeChild(this.wrapper);
+    }
+  }
+
+  IsStringOnlyCharacters(input: string): boolean {
+    return Array.from(input).every((char) => /^[A-Za-z]$/.test(char));
   }
 }

@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-} from '@nestjs/common';
+import {Controller,Get,HttpException,HttpStatus,Param,} from '@nestjs/common';
 import { CityService } from '../services/city.service';
 import City  from '../entities/City';
 
@@ -25,7 +19,7 @@ export class AppController {
   @Get('/search/:filter')
   findCities(@Param('filter') filter: string): City[] {
     try {
-      return this.cityService.filterCities(filter);//[ {"uuid": "7e8a29e2-62d1-4ec1-ae15-8ff2f777318f", "cityName": "Berlin", "count": 523}];
+      return this.cityService.filterCities(filter);
     } catch (error:any) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -1,27 +1,8 @@
-/* Styles for wrapping the search box */
-:root{
-}
-
-html{
-    margin:0px;
-    padding:0px;
-    size: 100%;
-    height:100%
-}
-.my-custom-scrollbar {
-    position: relative;
-    height: 200px;
-    overflow: auto;
-}
-body{
-    padding-bottom: 1%;
-}
 
 .table-responsive{
     overflow: scroll;
     max-height: 315px;
-    margin-top: 10px;
-    
+    margin-top: 10px; 
 }
 
 .table-dark{
@@ -32,10 +13,13 @@ body{
     display: block;
 }
 
-
 .main {
     width: 50%;
-    margin: 50px auto;
+    margin: 5% auto;
+}
+
+#no-city{
+    margin: 2%;
 }
 
 .display-1 {
@@ -50,19 +34,17 @@ body{
     text-align: center;
 }
 
-/* Bootstrap 4 text input with search icon */
-
 .has-search .form-control {
-    padding-left: 2.375rem;
+    padding-left: 1%;
 }
 
 .has-search .form-control-feedback {
     position: absolute;
     z-index: 2;
     display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
+    width: 1%;
+    height: 1%;
+    line-height: 1%;
     text-align: center;
     pointer-events: none;
     color: #aaa;
