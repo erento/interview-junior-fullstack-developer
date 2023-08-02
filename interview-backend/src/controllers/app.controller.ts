@@ -8,7 +8,7 @@ export class AppController {
   constructor(private readonly cityService: CityService) {}
 
   @Get()
-  getCitites(): Set<City> {
+  getCities(): Set<City> {
     try {
       return this.cityService.getCities();
     } catch (error:any) {

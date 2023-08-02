@@ -14,7 +14,7 @@ export class CityService {
     return this.cities;
   }
 
-  filterCities(filter: string): City[] {
+  filterCities(filter: string): Array<City> {
     return Array.from(this.cities).filter(s => s.cityName.toLowerCase().includes(filter.toLowerCase())).slice(0, 5);
   }
 }

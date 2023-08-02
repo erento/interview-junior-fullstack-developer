@@ -1,10 +1,7 @@
-import { Injectable } from "@nestjs/common";
-
-@Injectable()
-class City {
-  public uuid: string = "unknown";
-  public cityName: string ="unknown";
-  public count: number = 0;
+interface City {
+  uuid: string;
+  cityName: string;
+  count: number;
 }
 
 export default City;

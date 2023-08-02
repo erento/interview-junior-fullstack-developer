@@ -1,34 +1,28 @@
 import { Component } from '@angular/core';
-import { CityService } from '../app/city.service';
-
-interface City {
-  uuid: string;
-  cityName: string;
-  count: number;
-}
+import { CityService } from '../services/city.service';
+import City from '../../../../interview-backend/src/entities/City'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  cities: City[];
-  text:string;
-  appendAlert:any;
-  alertPlaceholder:any;
-  wrapper:any;
 
-  constructor(
-    private cityService: CityService,
-  ) {
+export class AppComponent {
+  protected cities: City[];
+  protected text:string;
+  private appendAlert:any;
+  private alertPlaceholder:any;
+  private wrapper:any;
+  title = 'interview-frontend';
+
+  constructor(private cityService: CityService) {
     this.cities = [];
     this.text="";
   }
-  title = 'task-ui';
  
   ngOnInit() {
-    this.GetAllCities();
+    this.getAllCities();
     this.alertPlaceholder = document.getElementById('liveAlertPlaceholder');
     this.appendAlert = (message:any) => {
       this.wrapper = document.createElement('div')
@@ -40,31 +34,32 @@ export class AppComponent {
         ' </div>',
         '</div>'
       ].join('');
-     if(this.alertPlaceholder) this.alertPlaceholder.append(this.wrapper);
+      console.log(this.alertPlaceholder.children[0])
+     if(this.alertPlaceholder.children[0]==undefined) this.alertPlaceholder.append(this.wrapper);
     }
   }
 
-  GetAllCities(){
+  getAllCities(){
     this.cityService.getCities().subscribe((data) => {
       this.cities = data as City[];
     });
   }
 
-  OnSearch(){
-    if(!this.IsStringOnlyCharacters(this.text))
+  onSearch(){
+    if(!this.isStringOnlyCharacters(this.text))
       this.appendAlert("Please type letters only to the input field!");
     else
     {
-      if(this.text=="") this.GetAllCities();
+      if(this.text=="") this.getAllCities();
       else{
         this.cityService.findCities(this.text).subscribe((data) => {
         this.cities = data as City[];});
       }
-      if(this.alertPlaceholder.children[0]!=undefined) this.alertPlaceholder.removeChild(this.wrapper);
+      if(this.alertPlaceholder.children[0]!=undefined) this.alertPlaceholder.removeChild(this.alertPlaceholder.children[0]);
     }
   }
 
-  IsStringOnlyCharacters(input: string): boolean {
+  isStringOnlyCharacters(input: string): boolean {
     return Array.from(input).every((char) => /^[A-Za-z]$/.test(char));
   }
 }
