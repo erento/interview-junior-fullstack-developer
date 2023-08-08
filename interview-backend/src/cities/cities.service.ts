@@ -14,15 +14,16 @@ export class CitiesService {
     return this.cities;
   }
 
-  searchCitiesByName(filter: string): Array<City> {
+  searchCitiesByName(filter: string, page: number, limit: number): { results: City[], totalResults: number } {
     const results = this.cities
-      .filter(city => city.cityName.toLowerCase().includes(filter.toLowerCase()))
-      .slice(0, 5); // limit to 5 results
+      .filter(city => city.cityName.toLowerCase().includes(filter.toLowerCase()));
 
     if (results.length === 0) {
       throw new NotFoundException();
     }
 
-    return results;
+    const paginatedResults = results.slice(page * limit, (page * limit) + limit);
+
+    return { results: paginatedResults, totalResults: results.length };
   }
 }
