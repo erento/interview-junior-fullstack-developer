@@ -17,7 +17,7 @@ export class CitiesService {
   searchCitiesByName(filter: string): Array<City> {
     const results = this.cities
       .filter(city => city.cityName.toLowerCase().includes(filter.toLowerCase()))
-      .slice(0, 5);
+      .slice(0, 5); // limit to 5 results
 
     if (results.length === 0) {
       throw new NotFoundException();

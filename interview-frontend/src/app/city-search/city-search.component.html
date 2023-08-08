@@ -1,0 +1,29 @@
+<form (ngSubmit)="searchCity()">
+  <mat-form-field>
+    <input matInput placeholder="City Name" [(ngModel)]="city" name="city">
+  </mat-form-field>
+  <button mat-raised-button type="submit">Search</button>
+</form>
+
+<ng-container *ngIf="noResults; else resultsTable">
+  <p>No results found for "{{ searchQuery }}".</p>
+</ng-container>
+
+<ng-template #resultsTable>
+  <mat-table [dataSource]="cities">
+    <ng-container matColumnDef="uuid">
+      <mat-header-cell *matHeaderCellDef> UUID </mat-header-cell>
+      <mat-cell *matCellDef="let city"> {{city.uuid}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="cityName">
+      <mat-header-cell *matHeaderCellDef> City Name </mat-header-cell>
+      <mat-cell *matCellDef="let city"> {{city.cityName}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="count">
+      <mat-header-cell *matHeaderCellDef> Count </mat-header-cell>
+      <mat-cell *matCellDef="let city"> {{city.count}} </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</ng-template>
