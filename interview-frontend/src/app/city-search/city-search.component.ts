@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { PageEvent } from '@angular/material/paginator';
+import { CitySearchService } from '../city-search.service';
 
 @Component({
   selector: 'app-city-search',
   templateUrl: './city-search.component.html',
-  styleUrls: ['./city-search.component.scss']
+  styleUrls: ['./city-search.component.scss'],
 })
 export class CitySearchComponent {
   city: string = '';
@@ -15,34 +15,31 @@ export class CitySearchComponent {
   totalResults = 0;
   itemsPerPage = 5;
   currentPage = 0;
-  // These 3 above are just for total results count, default items per page and the page index
+    // These 3 above are just for total results count, default items per page and the page index
   displayedColumns: string[] = ['cityName', 'count', 'uuid'];
 
-  constructor(private http: HttpClient) {}
+  constructor(private citySearchService: CitySearchService) {}
 
   searchCity() {
-    this.noResults = false; // Reset the flag
+    this.noResults = false; //reset flag
     this.searchQuery = this.city;
-    this.currentPage = 0; // Reset to the first page
+    this.currentPage = 0; //reset page to first
     this.fetchCities();
   }
 
   pageChanged(event: PageEvent) {
-    this.itemsPerPage = event.pageSize; // Update items per page
-    this.currentPage = event.pageIndex; // Update current page index
+    this.itemsPerPage = event.pageSize; //update items per page
+    this.currentPage = event.pageIndex; //update page index
     this.fetchCities();
   }
 
   private fetchCities() {
-    const params = new HttpParams()
-      .set('page', this.currentPage.toString())
-      .set('limit', this.itemsPerPage.toString());
-
-      this.http.get<any>(`http://localhost:3000/cities/search/${this.city}`, { params })
+    this.citySearchService
+      .searchCitiesByName(this.city, this.currentPage, this.itemsPerPage)
       .subscribe({
         next: (data) => {
           this.cities = data.results;
-          this.totalResults = data.totalResults || 0;
+          this.totalResults = data.totalResults;
           this.noResults = this.cities.length === 0;
         },
         error: (error) => {
@@ -54,6 +51,5 @@ export class CitySearchComponent {
           }
         },
       });
-
   }
 }
