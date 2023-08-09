@@ -25,18 +25,74 @@
 
 .search-box button {
   position: absolute;
-  top: 50%;
-  right: 30px;
+  top: 25px;
+  right: 20px;
   transform: translateY(-50%);
   background-color: transparent;
-  border: none;
-  padding: 0;
+  border: 3px solid;
+  border-color: #999;
+  border-radius: 4px;
+  padding: 1px;
   cursor: pointer;
   font-size: 16px;
-  color: #555;
+  color: #000000;
 } 
 
 .search-results {
   margin: 20px 0;
   width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.search-results button {
+  padding: 8px 12px;
+  margin: 0 2px;
+  font-size: 14px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-results button:hover {
+  background-color: #e0e0e0;
+}
+
+.search-results button:disabled {
+  background-color: #f2f2f2;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.search-results span {
+  margin: 0 10px;
+  font-size: 16px;
+  color: #555;
+}
+
+.page-ruler {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.page-marker {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.page-marker.clickable {
+  cursor: pointer;
+}
+
+.page-marker.active {
+  font-weight: bold;
+  background-color: #6a62d8;
+  color: #ffffff;
 }

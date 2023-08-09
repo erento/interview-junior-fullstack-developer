@@ -1,9 +1,21 @@
 <div class="search-container">
   <div class="search-box">
-    <input type="text" placeholder="Search city"#filter>
-    <button class= "button" type="button"(click)="filterCity(filter.value)">Search</button>
+    <input type="text" placeholder="Search city" #filter>
+    <button class="button" type="button" (click)="filterCity(filter.value)">Search</button>
+    <div *ngFor="let city of filteredCityList"> {{ city }} </div>
   </div>
   <div class="search-results" *ngIf="filteredCityList.length">
-    <div *ngFor="let filterCity of filteredCityList" > {{filterCity}} </div>
+    <button [disabled]="currentPage === 1" (click)="onPageChange(-1)">Previous</button>
+    <div class="page-ruler" *ngIf="numberOfPages > 0">
+      <span
+        class="page-marker clickable"
+        *ngFor="let page of pageMarkers"
+        [class.active]="page === currentPage"
+        (click)="onPageMarkerClick(page)"
+      >
+        {{ page }}
+      </span>
+    </div>
+    <button [disabled]="currentPage === numberOfPages" (click)="onPageChange(1)">Next</button>
   </div>
 </div>
