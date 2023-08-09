@@ -1,4 +1,5 @@
-<form (ngSubmit)="searchCity()">
+
+<form (ngSubmit)="searchCity()" class="form">
   <mat-form-field>
     <input matInput placeholder="City Name" [(ngModel)]="city" name="city">
   </mat-form-field>
@@ -6,7 +7,7 @@
 </form>
 
 <ng-container *ngIf="noResults; else resultsTable">
-  <p>No results found for "{{ searchQuery }}".</p>
+  <p>No results found for "{{ searchQuery }}"</p>
 </ng-container>
 
 <ng-template #resultsTable>
@@ -32,3 +33,5 @@
                  (page)="pageChanged($event)">
   </mat-paginator>
 </ng-template>
+
+

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { CitySearchService } from '../city-search.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { CitySearchService } from '../../../services/city-search.service';
 
 @Component({
   selector: 'app-city-search',
@@ -15,8 +16,9 @@ export class CitySearchComponent {
   totalResults = 0;
   itemsPerPage = 5;
   currentPage = 0;
-    // These 3 above are just for total results count, default items per page and the page index
   displayedColumns: string[] = ['cityName', 'count', 'uuid'];
+
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
 
   constructor(private citySearchService: CitySearchService) {}
 
@@ -24,6 +26,9 @@ export class CitySearchComponent {
     this.noResults = false; //reset flag
     this.searchQuery = this.city;
     this.currentPage = 0; //reset page to first
+    if (this.paginator) {
+      this.paginator.firstPage(); // Reset the paginator to the first page
+    }
     this.fetchCities();
   }
 

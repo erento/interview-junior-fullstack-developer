@@ -3,7 +3,6 @@ import { CitiesService } from './cities.service';
 import City from './city.entity';
 import { NotFoundException } from '@nestjs/common';
 
-
 describe('CitiesService', () => {
   let service: CitiesService;
   let mockCities: City[];
@@ -33,13 +32,13 @@ describe('CitiesService', () => {
 
   describe('searchCitiesByName', () => {
     it('should search cities by name', () => {
-      const results = service.searchCitiesByName('Berlin');
-      expect(results).toEqual([mockCities[0]]);
+      const results = service.searchCitiesByName('Berlin', 0, 5);
+      //{ results: [...], totalResults: ... }
+      expect(results).toEqual({ results: [mockCities[0]], totalResults: 1 });
     });
 
     it('should throw a NotFoundException if no cities are found by name', () => {
-      expect(() => service.searchCitiesByName('UnknownCity')).toThrow(NotFoundException);
+      expect(() => service.searchCitiesByName('UnknownCity', 0, 5)).toThrow(NotFoundException);
     });
-
   });
 });

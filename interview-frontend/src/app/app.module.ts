@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { CitySearchComponent } from './city-search/city-search.component';
+import { CitySearchComponent } from './modules/city-search/components/city-search.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { CitySearchComponent } from './city-search/city-search.component';
     MatButtonModule,
     MatPaginatorModule,
     HttpClientModule
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

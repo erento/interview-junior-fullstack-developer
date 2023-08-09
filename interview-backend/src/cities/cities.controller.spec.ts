@@ -38,14 +38,14 @@ describe('CitiesController', () => {
 
   it('should search cities by name', () => {
     const mockCities: City[] = [{ uuid: '1', cityName: 'Berlin', count: 100 }];
-    jest.spyOn(service, 'searchCitiesByName').mockReturnValue(mockCities);
+    jest.spyOn(service, 'searchCitiesByName').mockReturnValue({ results: mockCities, totalResults: 1 });
 
-    expect(controller.searchCitiesByName('Berlin')).toEqual(mockCities);
+    expect(controller.searchCitiesByName('Berlin')).toEqual({ results: mockCities, totalResults: 1 });
   });
 
   it('should return an empty array if no cities are found by name', () => {
-    jest.spyOn(service, 'searchCitiesByName').mockReturnValue([]);
+    jest.spyOn(service, 'searchCitiesByName').mockReturnValue({ results: [], totalResults: 0 });
 
-    expect(controller.searchCitiesByName('UnknownCity')).toEqual([]);
+    expect(controller.searchCitiesByName('UnknownCity')).toEqual({ results: [], totalResults: 0 });
   });
 });

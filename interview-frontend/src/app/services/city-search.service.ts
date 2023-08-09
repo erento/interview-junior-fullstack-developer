@@ -10,7 +10,7 @@ export class CitySearchService {
   private apiUrl = 'http://localhost:3000/cities';
 
   constructor(private http: HttpClient) {}
-
+  
   searchCitiesByName(city: string, page: number, limit: number): Observable<any> {
     const params = new HttpParams()
       .set('page', page.toString())

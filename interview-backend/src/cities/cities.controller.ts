@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Param, Query, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { CitiesService } from './cities.service';
 import City from './city.entity';
 
@@ -20,7 +20,7 @@ export class CitiesController {
     try {
       return this.citiesService.searchCitiesByName(name, page, limit);
     } catch (error) {
-      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new NotFoundException()
     }
   }
 }
